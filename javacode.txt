@@ -1,0 +1,136 @@
+import java.io.*;
+import java.net.*;
+
+public
+ 
+class
+ 
+Server
+ 
+{
+    public
+ 
+static
+ 
+void
+ 
+main(String[] args)
+ 
+throws IOException
+ 
+{
+        ServerSocket serverSocket = new ServerSocket(6666); // Create a server socket on port 6666
+        System.out.println("Server started and listening on port 6666");
+
+        while (true) { // Continuously accept client connections
+            Socket clientSocket = serverSocket.accept(); // Wait for a client to connect
+            System.out.println("Client connected");
+
+            try {
+                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),
+ 
+true);
+
+                String messageFromClient = in.readLine(); // Read message from client
+                System.out.println("Received from client: " + messageFromClient);
+
+                out.println("Hello from server!"); // Send response back to client
+            } catch (IOException e) {
+                System.out.println("Error handling client connection: " + e.getMessage());
+            } finally {
+                clientSocket.close(); // Close the client socket
+            }
+        }
+    }
+}
+
+
+
+public
+ 
+class
+ 
+Server
+ 
+{
+    public
+ 
+static
+ 
+void
+ 
+main(String[] args)
+ 
+throws IOException
+ 
+{
+        ServerSocket serverSocket = new ServerSocket(6666); // Create a server socket on port 6666
+        System.out.println("Server started and listening on port 6666");
+
+        while (true) { // Continuously accept client connections
+            Socket clientSocket = serverSocket.accept(); // Wait for a client to connect
+            System.out.println("Client connected");
+
+            try {
+                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),
+ 
+true);
+
+                String messageFromClient = in.readLine(); // Read message from client
+                System.out.println("Received from client: " + messageFromClient);
+
+                out.println("Hello from server!"); // Send response back to client
+            } catch (IOException e) {
+                System.out.println("Error handling client connection: " + e.getMessage());
+            } finally {
+                clientSocket.close(); // Close the client socket
+            }
+        }
+    }
+}
+Use code with caution. Learn more
+Client Code (Client.java):
+
+Java
+import java.io.*;
+import
+ 
+java.net.*;
+
+public
+ 
+class
+ 
+Client
+ 
+{
+    public
+ 
+static
+ 
+void
+ 
+main(String[] args)
+ 
+throws IOException
+ 
+{
+        Socket clientSocket = new Socket("localhost", 6666); // Connect to the server on localhost:6666
+        System.out.println("Connected to the server");
+
+        try {
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+            out.println("Hello from client!"); // Send message to the server
+            String messageFromServer = in.readLine(); // Read response from server
+            System.out.println("Received from server: " + messageFromServer);
+        } catch (IOException e) {
+            System.out.println("Error communicating with server: " + e.getMessage());
+        } finally {
+            clientSocket.close(); // Close the client socket
+        }
+    }
+}
